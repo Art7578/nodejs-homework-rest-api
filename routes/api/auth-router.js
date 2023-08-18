@@ -11,6 +11,13 @@ authRouter.post(
 	validateBody(usersSchemas.userRegisterSchema),
 	authController.register,
 );
+authRouter.get("/users/verify/:verificationToken", authController.verifyEmail);
+
+authRouter.post(
+	"/users/verify",
+	validateBody(usersSchemas.userEmailSchema),
+	authController.resendVerifyEmail,
+);
 
 authRouter.post(
 	"/users/login",
@@ -26,5 +33,4 @@ authRouter.patch(
 authRouter.get("/users/current", authenticate, authController.getCurrent);
 
 authRouter.post("/users/logout", authenticate, authController.logout);
-
 export default authRouter;
